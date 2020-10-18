@@ -317,6 +317,12 @@ ReactNativeClient/lib/theme.js
 ReactNativeClient/lib/themes/aritimDark.js
 ReactNativeClient/lib/themes/dark.js
 ReactNativeClient/lib/themes/dracula.js
+ReactNativeClient/lib/themes/dynamic.js
+ReactNativeClient/lib/themes/dynamic/AndroidColors.js
+ReactNativeClient/lib/themes/dynamic/iOSColors.js
+ReactNativeClient/lib/themes/dynamic/LinuxColors.js
+ReactNativeClient/lib/themes/dynamic/MacOSColors.js
+ReactNativeClient/lib/themes/dynamic/WindowsColors.js
 ReactNativeClient/lib/themes/light.js
 ReactNativeClient/lib/themes/nord.js
 ReactNativeClient/lib/themes/oledDark.js
