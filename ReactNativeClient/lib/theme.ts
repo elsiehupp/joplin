@@ -67,7 +67,7 @@ class StyleContext {
 	}
 
 
-	themes:any = {
+	private themes:any = {
 		[Setting.THEME_LIGHT]: theme_light,
 		[Setting.THEME_DARK]: theme_dark,
 		[Setting.THEME_DRACULA]: theme_dracula,
@@ -78,28 +78,28 @@ class StyleContext {
 		[Setting.THEME_OLED_DARK]: theme_oledDark,
 	};
 
-	themeById(themeId:string) {
-		if (!this.themes[themeId]) throw new Error(`Invalid theme ID: ${themeId}`);
-		const output = Object.assign({}, this.themes[themeId]);
+	// private themeById(themeId:string) {
+	// 	if (!this.themes[themeId]) throw new Error(`Invalid theme ID: ${themeId}`);
+	// 	const output = Object.assign({}, this.themes[themeId]);
 
-		if (!output.headerBackgroundColor) {
-			output.headerBackgroundColor = output.appearance === 'light' ? '#F0F0F0' : '#2D3136';
-		}
+	// 	if (!output.headerBackgroundColor) {
+	// 		output.headerBackgroundColor = output.appearance === 'light' ? '#F0F0F0' : '#2D3136';
+	// 	}
 
-		if (!output.textSelectionColor) {
-			output.textSelectionColor = output.appearance === 'light' ? '#0096FF' : '#00AEFF';
-		}
+	// 	if (!output.textSelectionColor) {
+	// 		output.textSelectionColor = output.appearance === 'light' ? '#0096FF' : '#00AEFF';
+	// 	}
 
-		if (!output.colorBright2) {
-			output.colorBright2 = output.appearance === 'light' ? '#ffffff' : '#ffffff';
-		}
+	// 	if (!output.colorBright2) {
+	// 		output.colorBright2 = output.appearance === 'light' ? '#ffffff' : '#ffffff';
+	// 	}
 
-		return output;
-	}
+	// 	return output;
+	// }
 
 	// globalStyle should be used for properties that do not change across themes
 	// i.e. should not be used for colors
-	globalStyle:any = {
+	private globalStyle:any = {
 		fontFamily: 'Roboto',// 'sans-serif',
 		margin: 15, // No text and no interactive component should be within this margin
 		itemMarginTop: 10,
@@ -118,9 +118,7 @@ class StyleContext {
 		topRowHeight: 50,
 	};
 
-
-
-	addMissingProperties(theme:Theme) {
+	private addMissingProperties(theme:Theme) {
 		// if (!('backgroundColor3' in theme)) theme.backgroundColor3 = theme.backgroundColor;
 		// if (!('color3' in theme)) theme.color3 = theme.color;
 		// if (!('selectionBackgroundColor3' in theme)) {
@@ -144,7 +142,7 @@ class StyleContext {
 		return theme;
 	}
 
-	addExtraStyles(style:any) {
+	private addExtraStyles(style:any) {
 		style.selectedDividerColor = Color(style.dividerColor).darken(0.2).hex();
 		style.iconColor = Color(style.color).alpha(0.8);
 
@@ -370,9 +368,9 @@ class StyleContext {
 		return style;
 	}
 
-	themeCache_:any = {};
+	private themeCache_:any = {};
 
-	themeStyle(theme:any) {
+	public themeStyle(theme:any) {
 		if (!theme) throw new Error('Theme must be specified');
 
 		const zoomRatio = 1; // Setting.value('style.zoom') / 100;
@@ -406,7 +404,7 @@ class StyleContext {
 		return this.themeCache_[cacheKey];
 	}
 
-	cachedStyles_:any = {
+	private cachedStyles_:any = {
 		themeId: null,
 		styles: {},
 	};
@@ -414,7 +412,7 @@ class StyleContext {
 	// cacheKey must be a globally unique key, and must change whenever
 	// the dependencies of the style change. If the style depends only
 	// on the theme, a static string can be provided as a cache key.
-	buildStyle(cacheKey:any, themeId:string, callback:Function) {
+	public buildStyle(cacheKey:any, themeId:string, callback:Function) {
 		cacheKey = Array.isArray(cacheKey) ? cacheKey.join('_') : cacheKey;
 
 		// We clear the cache whenever switching themes
