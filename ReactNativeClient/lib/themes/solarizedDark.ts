@@ -1,38 +1,38 @@
-import { Theme } from './type';
-import theme_dark from './dark';
+import DarkTheme from './DarkTheme';
+import { JoplinStyleStringNames } from './StyleProvider';
 
-const theme:Theme = {
-	...theme_dark,
+export default class SolarizedDark extends DarkTheme {
+	public constructor() {
+		super();
 
-	backgroundColor: '#002b36',
-	backgroundColorTransparent: 'rgba(0, 43, 54, 0.9)',
-	oddBackgroundColor: '#073642',
-	color: '#93a1a1', // For regular text
-	colorError: '#dc322f',
-	colorWarn: '#cb4b16',
-	colorFaded: '#657b83', // For less important text;
-	colorBright: '#eee8d5', // For important text;
-	dividerColor: '#586e75',
-	selectedColor: '#073642',
-	urlColor: '#268bd2',
+		this.themeID = 'solarized-dark';
+		this.codeThemeCss = 'atom-one-dark-reasonable.css';
 
-	backgroundColor2: '#073642',
-	color2: '#eee8d5',
-	selectedColor2: '#6c71c4',
-	colorError2: '#cb4b16',
+		this.set(JoplinStyleStringNames.BackgroundColor1, '#002b36');
+		this.set(JoplinStyleStringNames.BackgroundColorTransparent,'rgba(0, 43, 54, 0.9)');
+		this.set(JoplinStyleStringNames.OddBackgroundColor, '#073642');
+		this.set(JoplinStyleStringNames.MainTextColor1, '#93a1a1'); // For regular text
+		this.set(JoplinStyleStringNames.ErrorTextColor1, '#dc322f');
+		this.set(JoplinStyleStringNames.WarningTextColor, '#cb4b16');
+		this.set(JoplinStyleStringNames.FadedTextColor1, '#657b83'); // For less important text;
+		this.set(JoplinStyleStringNames.BrightTextColor, '#eee8d5'); // For important text;
+		this.set(JoplinStyleStringNames.DividerColor, '#586e75');
+		this.set(JoplinStyleStringNames.SelectedTextColor1, '#073642');
+		this.set(JoplinStyleStringNames.UrlTextColor, '#268bd2');
 
-	raisedBackgroundColor: '#073642',
-	raisedColor: '#839496',
+		this.set(JoplinStyleStringNames.BackgroundColor2, '#073642');
+		this.set(JoplinStyleStringNames.MainTextColor2, '#eee8d5');
+		this.set(JoplinStyleStringNames.SelectedTextColor2, '#6c71c4');
+		this.set(JoplinStyleStringNames.ErrorTextColor2, '#cb4b16');
 
-	warningBackgroundColor: '#b5890055',
+		this.set(JoplinStyleStringNames.RaisedBackgroundColor, '#073642');
+		this.set(JoplinStyleStringNames.RaisedTextColor, '#839496');
 
-	tableBackgroundColor: '#002b36',
-	codeBackgroundColor: '#002b36',
-	codeBorderColor: '#696969',
-	codeColor: '#fdf6e3',
+		this.set(JoplinStyleStringNames.WarningBackgroundColor, '#b5890055');
 
-	codeMirrorTheme: 'solarized dark',
-	codeThemeCss: 'atom-one-dark-reasonable.css',
-};
-
-export default theme;
+		this.set(JoplinStyleStringNames.TableBackgroundColor, '#002b36');
+		this.set(JoplinStyleStringNames.CodeBackgroundColor, '#002b36');
+		this.set(JoplinStyleStringNames.CodeBorderColor, '#696969');
+		this.set(JoplinStyleStringNames.CodeTextColor, '#fdf6e3');
+	}
+}

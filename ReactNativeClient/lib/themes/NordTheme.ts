@@ -1,5 +1,5 @@
-import { Theme } from './type';
-import theme_dark from './dark';
+import DarkTheme from './DarkTheme';
+import { JoplinStyleStringNames } from "./StyleProvider";
 
 const nord = ['#2e3440', '#3b4252', '#434c5e', '#4c566a', '#d8dee9', '#e5e9f0', '#eceff4', '#8fbcbb', '#88c0d0', '#81a1c1', '#5e81ac', '#bf616a', '#d08770', '#ebcb8b', '#a3be8c', '#b48ead'];
 
@@ -47,38 +47,38 @@ const nord = ['#2e3440', '#3b4252', '#434c5e', '#4c566a', '#d8dee9', '#e5e9f0', 
 // Used for numbers.
 // 2e3440 === rbga(46, 52, 64, 1)
 
-const theme:Theme = {
-	...theme_dark,
+export default class Nord extends DarkTheme {
+	public constructor () {
+		super();
 
-	backgroundColor: nord[0],
-	backgroundColorTransparent: 'rgba(46, 52, 64, 0.9)',
-	oddBackgroundColor: nord[1],
-	color: nord[5], // For regular text
-	colorError: nord[11],
-	colorWarn: nord[12],
-	colorFaded: nord[4], // For less important text;
-	colorBright: nord[6], // For important text;
-	dividerColor: nord[10],
-	selectedColor: nord[9],
-	urlColor: nord[8],
+		this.themeID ='nord';
+		this.codeThemeCss = 'atom-one-dark-reasonable.css';
 
-	backgroundColor2: nord[2],
-	color2: nord[8],
-	selectedColor2: nord[10],
-	colorError2: nord[11],
+		this.set(JoplinStyleStringNames.BackgroundColor1, nord[0]);
+		this.set(JoplinStyleStringNames.BackgroundColorTransparent, 'rgba(46, 52, 64, 0.9)');
+		this.set(JoplinStyleStringNames.OddBackgroundColor, nord[1]);
+		this.set(JoplinStyleStringNames.MainTextColor1, nord[5]); // For regular text
+		this.set(JoplinStyleStringNames.ErrorTextColor1, nord[11]);
+		this.set(JoplinStyleStringNames.WarningTextColor, nord[12]);
+		this.set(JoplinStyleStringNames.FadedTextColor1, nord[4]); // For less important text;
+		this.set(JoplinStyleStringNames.BrightTextColor, nord[6]); // For important text;
+		this.set(JoplinStyleStringNames.DividerColor, nord[10]);
+		this.set(JoplinStyleStringNames.SelectedTextColor1, nord[9]);
+		this.set(JoplinStyleStringNames.UrlTextColor, nord[8]);
 
-	raisedBackgroundColor: nord[2],
-	raisedColor: nord[7],
+		this.set(JoplinStyleStringNames.BackgroundColor2, nord[2]);
+		this.set(JoplinStyleStringNames.MainTextColor2, nord[8]);
+		this.set(JoplinStyleStringNames.SelectedTextColor2, nord[10]);
+		this.set(JoplinStyleStringNames.ErrorTextColor2, nord[11]);
 
-	warningBackgroundColor: nord[13],
+		this.set(JoplinStyleStringNames.RaisedBackgroundColor, nord[2]);
+		this.set(JoplinStyleStringNames.RaisedTextColor, nord[7]);
 
-	tableBackgroundColor: nord[0],
-	codeBackgroundColor: nord[0],
-	codeBorderColor: nord[2],
-	codeColor: nord[13],
+		this.set(JoplinStyleStringNames.WarningBackgroundColor, nord[13]);
 
-	codeMirrorTheme: 'nord',
-	codeThemeCss: 'atom-one-dark-reasonable.css',
-};
-
-export default theme;
+		this.set(JoplinStyleStringNames.TableBackgroundColor, nord[0]);
+		this.set(JoplinStyleStringNames.CodeBackgroundColor, nord[0]);
+		this.set(JoplinStyleStringNames.CodeBorderColor, nord[2]);
+		this.set(JoplinStyleStringNames.CodeTextColor, nord[13]);
+	}
+}
