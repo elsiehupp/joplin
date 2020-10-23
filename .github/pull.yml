@@ -1,0 +1,5 @@
+version: "1"
+rules:
+  - base: joplin-style-context
+    upstream: laurent22:joplin-style-context
+    mergeMethod: rebase
