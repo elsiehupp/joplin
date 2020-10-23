@@ -1,8 +1,11 @@
 import PluginRunner from '../app/services/plugins/PluginRunner';
 import PluginService from 'lib/services/plugins/PluginService';
+import { ContentScriptType } from 'lib/services/plugins/api/types';
+import MdToHtml from 'lib/joplin-renderer/MdToHtml';
+import shim from 'lib/shim';
 
 require('app-module-path').addPath(__dirname);
-const { asyncTest, setupDatabaseAndSynchronizer, switchClient, expectThrow } = require('test-utils.js');
+const { asyncTest, setupDatabaseAndSynchronizer, switchClient, expectThrow, createTempDir } = require('test-utils.js');
 const Note = require('lib/models/Note');
 const Folder = require('lib/models/Folder');
 
@@ -60,6 +63,9 @@ describe('services_PluginService', function() {
 
 		const allFolders = await Folder.all();
 		expect(allFolders.length).toBe(1);
+
+		// If you have an error here, it might mean you need to run `npm i` from
+		// the "withExternalModules" folder. Not clear exactly why.
 		expect(allFolders[0].title).toBe('  foo');
 	}));
 
@@ -146,6 +152,56 @@ describe('services_PluginService', function() {
 		for (const jsBundle of invalidJsBundles) {
 			await expectThrow(async () => await service.loadPluginFromString('example', '/tmp', jsBundle));
 		}
+	}));
+
+	it('should register a Markdown-it plugin', asyncTest(async () => {
+		const tempDir = await createTempDir();
+
+		const contentScriptPath = `${tempDir}/markdownItTestPlugin.js`;
+		await shim.fsDriver().copy(`${testPluginDir}/content_script/src/markdownItTestPlugin.js`, contentScriptPath);
+
+		const service = newPluginService();
+
+		const plugin = await service.loadPluginFromString('example', tempDir, `
+			/* joplin-manifest:
+			{
+				"manifest_version": 1,
+				"name": "JS Bundle test",
+				"description": "JS Bundle Test plugin",
+				"version": "1.0.0",
+				"author": "Laurent Cozic",
+				"homepage_url": "https://joplinapp.org"
+			}
+			*/
+			
+			joplin.plugins.register({
+				onStart: async function() {
+					await joplin.plugins.registerContentScript('markdownItPlugin', 'justtesting', './markdownItTestPlugin.js');
+				},
+			});
+		`);
+
+		await service.runPlugin(plugin);
+
+		const contentScripts = plugin.contentScriptsByType(ContentScriptType.MarkdownItPlugin);
+		expect(contentScripts.length).toBe(1);
+		expect(!!contentScripts[0].path).toBe(true);
+
+		const contentScript = contentScripts[0];
+
+		const mdToHtml = new MdToHtml();
+		const module = require(contentScript.path).default;
+		mdToHtml.loadExtraRendererRule(contentScript.id, module({}));
+
+		const result = await mdToHtml.render([
+			'```justtesting',
+			'something',
+			'```',
+		].join('\n'));
+
+		expect(result.html.includes('JUST TESTING: something')).toBe(true);
+
+		await shim.fsDriver().remove(tempDir);
 	}));
 
 });

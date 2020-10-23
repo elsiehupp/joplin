@@ -4,6 +4,7 @@ import ToolbarBase from '../ToolbarBase';
 import { utils as pluginUtils } from 'lib/services/plugins/reducer';
 import ToolbarButtonUtils, { ToolbarButtonInfo } from 'lib/services/commands/ToolbarButtonUtils';
 import JoplinStyleSheetNames from 'lib/themes/JoplinStyleSheetNames';
+import stateToWhenClauseContext from 'lib/services/commands/stateToWhenClauseContext';
 const { connect } = require('react-redux');
 const { buildStyle } = require('lib/theme');
 
@@ -25,12 +26,14 @@ function NoteToolbar(props:NoteToolbarProps) {
 const toolbarButtonUtils = new ToolbarButtonUtils(CommandService.instance());
 
 const mapStateToProps = (state:any) => {
+	const whenClauseContext = stateToWhenClauseContext(state);
+
 	return {
-		toolbarButtonInfos: toolbarButtonUtils.commandsToToolbarButtons(state, [
+		toolbarButtonInfos: toolbarButtonUtils.commandsToToolbarButtons([
 			'editAlarm',
 			'toggleVisiblePanes',
 			'showNoteProperties',
-		].concat(pluginUtils.commandNamesFromViews(state.pluginService.plugins, 'noteToolbar'))),
+		].concat(pluginUtils.commandNamesFromViews(state.pluginService.plugins, 'noteToolbar')), whenClauseContext),
 	};
 };
 
