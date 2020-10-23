@@ -340,8 +340,8 @@ function CodeMirror(props: NoteBodyEditorProps, ref: any) {
 			if (styles.editor.codeMirrorTheme !== 'default') {
 				// Solarized light and solarized dark are loaded by the single
 				// solarized.css file
-				let theme = styles.editor.codeMirrorTheme;
-				if (theme.indexOf('solarized') >= 0) theme = 'solarized';
+				const theme = styles.editor.codeMirrorTheme;
+				// if (theme.indexOf('solarized') >= 0) theme = 'solarized';
 
 				scriptsToLoad.push({
 					src: `node_modules/codemirror/theme/${theme}.css`,

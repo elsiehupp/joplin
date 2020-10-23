@@ -261,7 +261,14 @@ ReactNativeClient/lib/themes/AritimDark.js
 ReactNativeClient/lib/themes/BoxStyle.js
 ReactNativeClient/lib/themes/DarkTheme.js
 ReactNativeClient/lib/themes/DefaultTheme.js
+ReactNativeClient/lib/themes/DefaultThemeNames.js
 ReactNativeClient/lib/themes/DraculaTheme.js
+ReactNativeClient/lib/themes/JoplinStyleClassNames.js
+ReactNativeClient/lib/themes/JoplinStyleColorAppearance.js
+ReactNativeClient/lib/themes/JoplinStyleElementName.js
+ReactNativeClient/lib/themes/JoplinStyleNumberNames.js
+ReactNativeClient/lib/themes/JoplinStyleSheetNames.js
+ReactNativeClient/lib/themes/JoplinStyleStringNames.js
 ReactNativeClient/lib/themes/LightTheme.js
 ReactNativeClient/lib/themes/NordTheme.js
 ReactNativeClient/lib/themes/OledDark.js

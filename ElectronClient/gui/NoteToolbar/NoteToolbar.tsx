@@ -3,6 +3,7 @@ import CommandService from 'lib/services/CommandService';
 import ToolbarBase from '../ToolbarBase';
 import { utils as pluginUtils } from 'lib/services/plugins/reducer';
 import ToolbarButtonUtils, { ToolbarButtonInfo } from 'lib/services/commands/ToolbarButtonUtils';
+import JoplinStyleSheetNames from 'lib/themes/JoplinStyleSheetNames';
 const { connect } = require('react-redux');
 const { buildStyle } = require('lib/theme');
 
@@ -13,15 +14,7 @@ interface NoteToolbarProps {
 }
 
 function styles_(props:NoteToolbarProps) {
-	return buildStyle('NoteToolbar', props.themeId, (theme:any) => {
-		return {
-			root: {
-				...props.style,
-				borderBottom: 'none',
-				backgroundColor: theme.backgroundColor,
-			},
-		};
-	});
+	return buildStyle(JoplinStyleSheetNames.NoteToolbar, props);
 }
 
 function NoteToolbar(props:NoteToolbarProps) {

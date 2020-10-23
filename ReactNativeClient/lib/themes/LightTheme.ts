@@ -1,13 +1,15 @@
 import DefaultTheme from './DefaultTheme';
-import { JoplinStyleStringNames, StyleColorAppearance } from './StyleProvider';
+import JoplinStyleStringNames from './JoplinStyleStringNames';
+import JoplinStyleColorAppearance from './JoplinStyleColorAppearance';
 
 // This is the default theme in Joplin
 export default class LightTheme extends DefaultTheme {
 	public constructor() {
 		super();
 
-		this.appearance = StyleColorAppearance.Light;
+		this.appearance = JoplinStyleColorAppearance.Light;
 		this.themeID = 'light';
+		this.set('codeMirrorTheme', this.themeID);
 		this.codeThemeCss = 'atom-one-light.css';
 
 		// Color scheme "1" is the basic one, like used to display the note

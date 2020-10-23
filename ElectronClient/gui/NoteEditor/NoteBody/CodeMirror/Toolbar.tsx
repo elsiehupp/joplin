@@ -5,6 +5,7 @@ import { utils as pluginUtils } from 'lib/services/plugins/reducer';
 import { connect } from 'react-redux';
 import { AppState } from '../../../../app';
 import ToolbarButtonUtils, { ToolbarButtonInfo } from 'lib/services/commands/ToolbarButtonUtils';
+import JoplinStyleSheetNames from 'lib/themes/JoplinStyleSheetNames';
 const { buildStyle } = require('lib/theme');
 
 interface ToolbarProps {
@@ -13,14 +14,7 @@ interface ToolbarProps {
 }
 
 function styles_(props:ToolbarProps) {
-	return buildStyle('CodeMirrorToolbar', props.themeId, () => {
-		return {
-			root: {
-				flex: 1,
-				marginBottom: 0,
-			},
-		};
-	});
+	return buildStyle(JoplinStyleSheetNames.CodeMirrorToolbar, props);
 }
 
 const toolbarButtonUtils = new ToolbarButtonUtils(CommandService.instance());

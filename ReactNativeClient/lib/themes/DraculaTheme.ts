@@ -1,11 +1,12 @@
 import DarkTheme from './DarkTheme';
-import { JoplinStyleStringNames } from './StyleProvider';
+import JoplinStyleStringNames from './JoplinStyleStringNames';
 
 export default class Dracula extends DarkTheme {
 	public constructor() {
 		super();
 
 		this.themeID = 'dracula';
+		this.set('codeMirrorTheme', this.themeID);
 		this.codeThemeCss = 'atom-one-dark-reasonable.css';
 
 		this.set(JoplinStyleStringNames.BackgroundColor1, '#282a36');

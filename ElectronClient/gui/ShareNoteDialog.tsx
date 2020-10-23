@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import JoplinServerApi from '../lib/JoplinServerApi';
 
 import { _, _n } from 'lib/locale';
+import JoplinStyleSheetNames from 'lib/themes/JoplinStyleSheetNames';
 const { themeStyle, buildStyle } = require('lib/theme');
 const DialogButtonRow = require('./DialogButtonRow.min');
 const Note = require('lib/models/Note');
@@ -22,41 +23,7 @@ interface SharesMap {
 }
 
 function styles_(props:ShareNoteDialogProps) {
-	return buildStyle('ShareNoteDialog', props.themeId, (theme:any) => {
-		return {
-			noteList: {
-				marginBottom: 10,
-			},
-			note: {
-				flex: 1,
-				flexDirection: 'row',
-				display: 'flex',
-				alignItems: 'center',
-				border: '1px solid',
-				borderColor: theme.dividerColor,
-				padding: '0.5em',
-				marginBottom: 5,
-			},
-			noteTitle: {
-				...theme.textStyle,
-				flex: 1,
-				display: 'flex',
-				color: theme.color,
-			},
-			noteRemoveButton: {
-				background: 'none',
-				border: 'none',
-			},
-			noteRemoveButtonIcon: {
-				color: theme.color,
-				fontSize: '1.4em',
-			},
-			copyShareLinkButton: {
-				...theme.buttonStyle,
-				marginBottom: 10,
-			},
-		};
-	});
+	return buildStyle(JoplinStyleSheetNames.ShareNoteDialogue, props);
 }
 
 export default function ShareNoteDialog(props:ShareNoteDialogProps) {

@@ -1,5 +1,5 @@
 import DarkTheme from './DarkTheme';
-import { JoplinStyleStringNames } from "./StyleProvider";
+import JoplinStyleStringNames from './JoplinStyleStringNames';
 
 const nord = ['#2e3440', '#3b4252', '#434c5e', '#4c566a', '#d8dee9', '#e5e9f0', '#eceff4', '#8fbcbb', '#88c0d0', '#81a1c1', '#5e81ac', '#bf616a', '#d08770', '#ebcb8b', '#a3be8c', '#b48ead'];
 
@@ -48,10 +48,11 @@ const nord = ['#2e3440', '#3b4252', '#434c5e', '#4c566a', '#d8dee9', '#e5e9f0', 
 // 2e3440 === rbga(46, 52, 64, 1)
 
 export default class Nord extends DarkTheme {
-	public constructor () {
+	public constructor() {
 		super();
 
-		this.themeID ='nord';
+		this.themeID = 'nord';
+		this.set('codeMirrorTheme', this.themeID);
 		this.codeThemeCss = 'atom-one-dark-reasonable.css';
 
 		this.set(JoplinStyleStringNames.BackgroundColor1, nord[0]);

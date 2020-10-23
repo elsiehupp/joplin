@@ -1,4 +1,5 @@
 import { PluginStates } from 'lib/services/plugins/reducer';
+import JoplinStyleSheetNames from 'lib/themes/JoplinStyleSheetNames';
 import * as React from 'react';
 import NoteListUtils from './utils/NoteListUtils';
 
@@ -15,24 +16,7 @@ interface MultiNoteActionsProps {
 }
 
 function styles_(props:MultiNoteActionsProps) {
-	return buildStyle('MultiNoteActions', props.themeId, (theme:any) => {
-		return {
-			root: {
-				display: 'inline-flex',
-				justifyContent: 'center',
-				paddingTop: theme.marginTop,
-				width: '100%',
-			},
-			itemList: {
-				display: 'flex',
-				flexDirection: 'column',
-			},
-			button: {
-				...theme.buttonStyle,
-				marginBottom: 10,
-			},
-		};
-	});
+	return buildStyle(JoplinStyleSheetNames.MultiNoteActions, props);
 }
 
 export default function MultiNoteActions(props:MultiNoteActionsProps) {

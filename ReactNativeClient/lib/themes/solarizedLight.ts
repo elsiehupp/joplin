@@ -1,9 +1,13 @@
 import LightTheme from './LightTheme';
-import { JoplinStyleStringNames } from './StyleProvider';
+import JoplinStyleStringNames from './JoplinStyleStringNames';
 
 export default class SolarizedLight extends LightTheme {
 	public constructor() {
 		super();
+
+		this.themeID = 'solarized-light';
+		this.set('codeMirrorTheme', this.themeID);
+		this.codeThemeCss = 'atom-one-light.css';
 
 		this.set(JoplinStyleStringNames.BackgroundColor1, '#fdf6e3');
 		this.set(JoplinStyleStringNames.BackgroundColorTransparent, 'rgba(253, 246, 227, 0.9)');
@@ -31,8 +35,5 @@ export default class SolarizedLight extends LightTheme {
 		this.set(JoplinStyleStringNames.CodeBackgroundColor, '#fdf6e3');
 		this.set(JoplinStyleStringNames.CodeBorderColor, '#eee8d5');
 		this.set(JoplinStyleStringNames.CodeTextColor, '#002b36');
-
-		this.themeID = 'solarized-light';
-		this.codeThemeCss = 'atom-one-light.css';
 	}
 }

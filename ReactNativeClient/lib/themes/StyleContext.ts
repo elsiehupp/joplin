@@ -1,4 +1,6 @@
-import { JoplinStyleNumberNames, StyleProvider } from './StyleProvider';
+import JoplinStyleSheetNames from './JoplinStyleSheetNames';
+import JoplinStyleNumberNames from './JoplinStyleNumberNames';
+import StyleProvider from './StyleProvider';
 import DefaultTheme from './DefaultTheme';
 
 import LightTheme from './LightTheme';
@@ -39,12 +41,12 @@ export default class StyleContext {
 	// cacheKey must be a globally unique key, and must change whenever
 	// the dependencies of the style change. If the style depends only
 	// on the theme, a static string can be provided as a cache key.
-	public buildStyle(styleElementName:string, themeId:any, callback:Function) {
+	public buildStyle(electronStyleClass:JoplinStyleSheetNames, props:any) {
 		// cacheKey = Array.isArray(cacheKey) ? cacheKey.join('_') : cacheKey;
 
 		// We clear the cache whenever switching themes
-		if (this.styleProvider.getThemeID() !== themeId) {
-			switch (themeId) {
+		if (this.styleProvider.getThemeID() !== props.themeId) {
+			switch (props.themeId) {
 			case 1:
 				this.styleProvider = new LightTheme();
 				break;
@@ -70,21 +72,15 @@ export default class StyleContext {
 				this.styleProvider = new OledDarkTheme();
 				break;
 			default:
-				throw new Error(`themeId ${themeId} is not valid.`);
+				throw new Error(`themeId ${props.themeId} is not valid.`);
 			}
 		}
 
-		if (this.styleProvider.has(styleElementName)) {
-			return this.styleProvider.get(styleElementName);
-		} else {
-			const s = callback(this.getProperty(themeId));
-
-			this.styleProvider.set(styleElementName, s);
-			// timestamp: Date.now(),
-			return this.styleProvider.get(styleElementName);
-		}
+		return this.styleProvider.getElectronStyleSheet(electronStyleClass, props);
 
 	}
+
+
 
 
 
