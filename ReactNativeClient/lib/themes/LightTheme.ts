@@ -53,6 +53,10 @@ export default class LightTheme extends DefaultTheme {
 		this.set(JoplinStyleStringNames.CodeBackgroundColor, 'rgb(243, 243, 243)');
 		this.set(JoplinStyleStringNames.CodeBorderColor, 'rgb(220, 220, 220)');
 		this.set(JoplinStyleStringNames.CodeTextColor, 'rgb(0,0,0)');
+
+
+		this.InitializeGlobalStyles();
+		this.InitializeOtherStyles();
 	}
 
 }

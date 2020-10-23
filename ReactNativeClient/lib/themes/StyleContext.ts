@@ -39,34 +39,34 @@ export default class StyleContext {
 	// cacheKey must be a globally unique key, and must change whenever
 	// the dependencies of the style change. If the style depends only
 	// on the theme, a static string can be provided as a cache key.
-	public buildStyleProvider(styleElementName:string, themeId:string, callback:Function) {
+	public buildStyle(styleElementName:string, themeId:any, callback:Function) {
 		// cacheKey = Array.isArray(cacheKey) ? cacheKey.join('_') : cacheKey;
 
 		// We clear the cache whenever switching themes
 		if (this.styleProvider.getThemeID() !== themeId) {
 			switch (themeId) {
-			case 'light':
+			case 1:
 				this.styleProvider = new LightTheme();
 				break;
-			case 'dark':
+			case 2:
 				this.styleProvider = new DarkTheme();
 				break;
-			case 'dracula':
+			case 3:
 				this.styleProvider = new DraculaTheme();
 				break;
-			case 'solarized-light':
+			case 4:
 				this.styleProvider = new SolarizedLight();
 				break;
-			case 'solarized-dark':
+			case 5:
 				this.styleProvider = new SolarizedDark();
 				break;
-			case 'nord':
+			case 6:
 				this.styleProvider = new NordTheme();
 				break;
-			case 'aritim':
+			case 7:
 				this.styleProvider = new AritimDark();
 				break;
-			case 'oled':
+			case 8:
 				this.styleProvider = new OledDarkTheme();
 				break;
 			default:
@@ -85,5 +85,7 @@ export default class StyleContext {
 		}
 
 	}
+
+
 
 }

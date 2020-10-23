@@ -1,7 +1,7 @@
 // import { TextStyle } from "./TextStyle";
 // import { BoxStyle } from "./BoxStyle";
 // import CSS = require('css');
-import CssClass from './TextStyle';
+// import CssClass from './TextStyle';
 import Collections = require('typescript-collections');
 // import './JoplinStyleColorNames';
 
@@ -113,6 +113,8 @@ export enum JoplinStyleClassNames {
 	TagStyle = 'tagStyle',
 	ToolbarStyle = 'toolbarStyle',
 
+	NoteEditor = 'noteEditor',
+
 	TextStyle = 'textStyle',
 	ClickableTextStyle = 'clickableTextStyle',
 	TextStyle2 = 'textStyle2',
@@ -151,13 +153,13 @@ export abstract class StyleProvider {
 	public constructor() {
 		this.styleCache = new Collections.Dictionary<any, any>();
 		for (const item in JoplinStyleStringNames) {
-			this.styleCache.setValue(item, null);
+			this.set(item, null);
 		}
 		for (const item in JoplinStyleNumberNames) {
-			this.styleCache.setValue(item, null);
+			this.set(item, null);
 		}
 		for (const item in JoplinStyleClassNames) {
-			this.styleCache.setValue(item, new CssClass());
+			this.set(item, {});
 		}
 
 		this.themeID = '';
@@ -178,28 +180,31 @@ export abstract class StyleProvider {
 	}
 
 	public has(styleElementName:string): boolean {
-		if (this.styleCache.containsKey(styleElementName)) {
-			return this.styleCache.getValue(styleElementName) != null;
-		} else {
-			throw new Error(`styleElementName '${styleElementName}' does not exist in styleCache.`);
-		}
+		// if (this.styleCache.containsKey(styleElementName)) {
+		return this.styleCache.getValue(styleElementName) != null;
+		// } else {
+		// 	throw new Error(`styleElementName '${styleElementName}' does not exist in styleCache.`);
+		// }
 	}
 
 	public get(styleElementName:string): any {
 		if (this.styleCache.containsKey(styleElementName)) {
 			return this.styleCache.getValue(styleElementName);
 		} else {
-			throw new Error(`styleElementName '${styleElementName}' does not exist in styleCache.`);
+			return {};
+			// throw new Error(`styleElementName '${styleElementName}' does not exist in styleCache.`);
 		}
 	}
 
 	public set(styleElementName:string, style:any): void {
-		if (this.styleCache.containsKey(styleElementName)) {
-			this.styleCache.setValue(styleElementName, style);
-			return;
-		} else {
-			throw new Error(`styleElementName '${styleElementName}' does not exist in styleCache.`);
-		}
+		this.styleCache.setValue(styleElementName, style);
+		return;
+		// if (this.styleCache.containsKey(styleElementName)) {
+		// 	this.styleCache.setValue(styleElementName, style);
+		// 	return;
+		// } else {
+		// 	throw new Error(`styleElementName '${styleElementName}' does not exist in styleCache.`);
+		// }
 	}
 
 	public getThemeID() {

@@ -34,8 +34,8 @@ export default class DefaultTheme extends StyleProvider {
 		super();
 		// this.themeID = themeID;
 
-		this.InitializeGlobalStyles();
-		this.InitializeOtherStyles();
+		// this.InitializeGlobalStyles();
+		// this.InitializeOtherStyles();
 
 		return this;
 	}
@@ -81,7 +81,7 @@ export default class DefaultTheme extends StyleProvider {
 	}
 
 
-	private InitializeOtherStyles() {	// globalStyle should be used for properties that do not change across themes
+	protected InitializeOtherStyles() {	// globalStyle should be used for properties that do not change across themes
 		// i.e. should not be used for colors
 
 		this.set(JoplinStyleStringNames.GlobalFontFamily, 'Roboto');// 'sans-serif',
@@ -104,7 +104,7 @@ export default class DefaultTheme extends StyleProvider {
 
 
 		this.set(JoplinStyleStringNames.SelectedDividerColor, Color(this.get(JoplinStyleStringNames.DividerColor)).darken(0.2).hex());
-		this.set(JoplinStyleStringNames.IconColor, Color(this.get(JoplinStyleStringNames.MainTextColor1).alpha(0.8)));
+		this.set(JoplinStyleStringNames.IconColor, Color(this.get(JoplinStyleStringNames.MainTextColor1)).alpha(0.8));
 
 		this.set(JoplinStyleStringNames.FadedTextColor2, Color(this.get(JoplinStyleStringNames.MainTextColor2)).alpha(0.5).rgb());
 		this.set(JoplinStyleStringNames.HoverTextColor2, Color(this.get(JoplinStyleStringNames.MainTextColor2)).alpha(0.7).rgb());
@@ -179,31 +179,34 @@ export default class DefaultTheme extends StyleProvider {
 		this.get(JoplinStyleClassNames.ToolbarStyle).color = this.get(JoplinStyleStringNames.MainTextColor1);
 		this.get(JoplinStyleClassNames.ToolbarStyle).whiteSpace = 'nowrap';
 
+		this.get(JoplinStyleClassNames.NoteEditor).color = this.get(JoplinStyleStringNames.MainTextColor1);
+		console.log(JoplinStyleClassNames.NoteEditor, this.get(JoplinStyleClassNames.NoteEditor).color);
+
 		this.get(JoplinStyleClassNames.TextStyle).fontFamily = this.get(JoplinStyleClassNames.GlobalBaseStyle).fontFamily;
 		this.get(JoplinStyleClassNames.TextStyle).fontSize = this.get(JoplinStyleNumberNames.FontSize);
 		this.get(JoplinStyleClassNames.TextStyle).lineHeight = '1.6em';
 		this.get(JoplinStyleClassNames.TextStyle).color = this.get(JoplinStyleStringNames.MainTextColor1);
 
-		this.get(JoplinStyleClassNames.ClickableTextStyle).copy(this.get(JoplinStyleClassNames.TextStyle));
+		this.set(JoplinStyleClassNames.ClickableTextStyle, Object.assign({}, this.get(JoplinStyleClassNames.TextStyle)));
 		this.get(JoplinStyleClassNames.ClickableTextStyle).userSelect = 'none';
 
-		this.get(JoplinStyleClassNames.TextStyle2).copy(this.get(JoplinStyleClassNames.TextStyle));
+		this.set(JoplinStyleClassNames.TextStyle2, Object.assign({}, this.get(JoplinStyleClassNames.TextStyle)));
 		this.get(JoplinStyleClassNames.TextStyle2).color = this.get(JoplinStyleStringNames.MainTextColor2);
 
-		this.get(JoplinStyleClassNames.TextStyleMinor).copy(this.get(JoplinStyleClassNames.TextStyle));
+		this.set(JoplinStyleClassNames.TextStyleMinor, Object.assign({}, this.get(JoplinStyleClassNames.TextStyle)));
 		this.get(JoplinStyleClassNames.TextStyleMinor).color = this.get(JoplinStyleStringNames.FadedTextColor1);
 		this.get(JoplinStyleClassNames.TextStyleMinor).fontSize = this.get(JoplinStyleNumberNames.FontSize) * 0.8;
 
-		this.get(JoplinStyleClassNames.UrlStyle).copy(this.get(JoplinStyleClassNames.TextStyle));
+		this.set(JoplinStyleClassNames.UrlStyle, Object.assign({}, this.get(JoplinStyleClassNames.TextStyle)));
 		this.get(JoplinStyleClassNames.UrlStyle).textDecoration = 'underline';
 		this.get(JoplinStyleClassNames.UrlStyle).color = this.get(JoplinStyleStringNames.UrlTextColor);
 
-		this.get(JoplinStyleClassNames.H1Style).copy(this.get(JoplinStyleClassNames.TextStyle));
+		this.set(JoplinStyleClassNames.H1Style, Object.assign({}, this.get(JoplinStyleClassNames.TextStyle)));
 		this.get(JoplinStyleClassNames.H1Style).color = this.get(JoplinStyleStringNames.MainTextColor1);
 		this.get(JoplinStyleClassNames.H1Style).fontSize = this.get(JoplinStyleClassNames.TextStyle).fontSize * 1.5;
 		this.get(JoplinStyleClassNames.H1Style).fontWeight = 'bold';
 
-		this.get(JoplinStyleClassNames.H2Style).copy(this.get(JoplinStyleClassNames.TextStyle));
+		this.set(JoplinStyleClassNames.H2Style, Object.assign({}, this.get(JoplinStyleClassNames.TextStyle)));
 		this.get(JoplinStyleClassNames.H2Style).color = this.get(JoplinStyleStringNames.MainTextColor1),
 		this.get(JoplinStyleClassNames.H2Style).fontSize = this.get(JoplinStyleClassNames.TextStyle).fontSize * 1.3,
 		this.get(JoplinStyleClassNames.H2Style).fontWeight = 'bold';
@@ -249,10 +252,10 @@ export default class DefaultTheme extends StyleProvider {
 		this.get(JoplinStyleClassNames.NotificationBox).padding = 10;
 		this.get(JoplinStyleClassNames.NotificationBox).fontSize = this.get(JoplinStyleNumberNames.FontSize);
 
-		this.get(JoplinStyleClassNames.DialogTitle).copy(this.get(JoplinStyleClassNames.H1Style));
+		this.set(JoplinStyleClassNames.DialogTitle, Object.assign({}, this.get(JoplinStyleClassNames.H1Style)));
 		this.get(JoplinStyleClassNames.DialogTitle).marginBottom = '1.2em';
 
-		this.get(JoplinStyleClassNames.DropdownList).copy(this.get(JoplinStyleClassNames.InputStyle));
+		this.set(JoplinStyleClassNames.DropdownList, Object.assign({}, this.get(JoplinStyleClassNames.InputStyle)));
 
 		this.set(JoplinStyleStringNames.HoverTextColor1, this.get(JoplinStyleStringNames.MainTextColor1));
 		this.set(JoplinStyleStringNames.HoverBackground, `${this.get(JoplinStyleStringNames.SelectedTextColor2)}44`);
@@ -269,7 +272,7 @@ export default class DefaultTheme extends StyleProvider {
 
 
 
-	private InitializeGlobalStyles(): void {
+	protected InitializeGlobalStyles(): void {
 		this.set(this.get(JoplinStyleClassNames.GlobalBaseStyle).marginRight, this.get(JoplinStyleClassNames.GlobalBaseStyle).margin);
 		this.set(this.get(JoplinStyleClassNames.GlobalBaseStyle).marginLeft, this.get(JoplinStyleClassNames.GlobalBaseStyle).margin);
 		this.set(this.get(JoplinStyleClassNames.GlobalBaseStyle).marginTop, this.get(JoplinStyleClassNames.GlobalBaseStyle).margin);
